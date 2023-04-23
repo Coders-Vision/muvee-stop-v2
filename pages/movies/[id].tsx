@@ -122,7 +122,7 @@ function Movie({
                   <Image
                     src={`${
                       castMember?.profile_path
-                        ? `https://image.tmdb.org/t/p/w300/${castMember.profile_path} `
+                        ? `https://image.tmdb.org/t/p/w300${castMember.profile_path}`
                         : "/default-poster.svg"
                     }`}
                     width={100}
