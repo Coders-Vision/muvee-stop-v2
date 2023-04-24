@@ -79,7 +79,7 @@ function Movie({
           </div>
           {showPlayer && player()}
           <div
-            className={`absolute top-3 inset-x-[7%] md:inset-x-[13%] rounded overflow-hiden transition duration-1000 ${
+            className={`absolute top-[20vh] inset-x-[7%] md:inset-x-[13%] rounded overflow-hiden transition duration-1000 ${
               showPlayer ? "opacity-100 z-50" : "opacity-0"
             }`}
           >
@@ -141,14 +141,6 @@ function Movie({
                 </div>
               </div>
             ))}
-          </div>
-        </section>
-        <section>
-          <div className=" py-8">
-            <div className="container mx-auto px-4">
-              <h2 className="text-2xl font-semibold mb-4">Cast</h2>
-              <div className="flex flex-row p-4 m-4"></div>
-            </div>
           </div>
         </section>
       </Layout>
