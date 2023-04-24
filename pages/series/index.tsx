@@ -14,7 +14,7 @@ function index() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Layout>
+      <Layout headerClasses="block">
         <h1>Series Page</h1>
       </Layout>
     </>

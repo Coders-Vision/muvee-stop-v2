@@ -143,16 +143,14 @@ function Movie({
             ))}
           </div>
         </section>
-
-        <section>
+        {/* <section>
           <div className=" py-8">
             <div className="container mx-auto px-4">
               <h2 className="text-2xl font-semibold mb-4">Cast</h2>
               <div className="flex flex-row p-4 m-4"></div>
             </div>
           </div>
-          {/* <h1>{JSON.stringify(credit.cast.filter(cas=>cas.known_for_department='Acting'))}</h1> */}
-        </section>
+        </section> */}
       </Layout>
     </>
   );

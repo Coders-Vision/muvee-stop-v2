@@ -24,7 +24,7 @@ function Movies() {
       </Head>
 
       <Layout headerClasses="block">
-        <h1>Hellooooo</h1>
+        <h1>Movies Page</h1>
         {data?.genres.map((genre) => (
           <GenreButton key={genre.id} />
         ))}
@@ -33,4 +33,4 @@ function Movies() {
   );
 }
 
-export default Movies
+export default Movies;

@@ -1,5 +1,6 @@
-import Image from "next/image";
 import React, { useState } from "react";
+import Image from "next/image";
+import Link from "next/link";
 import { FaSearch } from "react-icons/fa";
 import { TiThMenu } from "react-icons/ti";
 import { ImCross } from "react-icons/im";
@@ -30,21 +31,15 @@ function Header({ styleClass = "absolute top-0" }: Props) {
               />
             </div>
             <div className="hidden ml-10 md:flex items:center space-x-6">
-              <a className="header-link group cursor-pointer">
-                <span className="span" onClick={() => router.push("/")}>
-                  Home
-                </span>
-              </a>
-              <a className="header-link group cursor-pointer">
-                <span className="span" onClick={() => router.push("/movies")}>
-                  Movies
-                </span>
-              </a>
-              <a className="header-link group cursor-pointer">
-                <span className="span" onClick={() => router.push("/series")}>
-                  TV-Series
-                </span>
-              </a>
+              <Link href="/" className="header-link group cursor-pointer">
+                <span className="span">Home</span>
+              </Link>
+              <Link href="/movies" className="header-link group cursor-pointer">
+                <span className="span">Movies</span>
+              </Link>
+              <Link href="/series" className="header-link group cursor-pointer">
+                <span className="span">TV-Series</span>
+              </Link>
             </div>
             <aside
               className={`transform top-0 left-0 w-64 bg-black fixed h-full overflow-auto ease-in-out transition-all duration-300 z-30 ${
@@ -58,6 +53,7 @@ function Header({ styleClass = "absolute top-0" }: Props) {
                   height={20}
                   alt={"logo"}
                   className="cursor-pointer"
+                  onClick={() => router.push("/")}
                 />
                 <ImCross
                   className="mr-1 cursor-pointer"
@@ -67,10 +63,16 @@ function Header({ styleClass = "absolute top-0" }: Props) {
               {/* <span className="flex items-center p-4 hover:bg-indigo-500 hover:text-white ">
                 Genre
               </span> */}
-              <span className="flex items-center p-4 hover:bg-green-500 hover:text-white ">
+              <span
+                className="flex items-center p-4 hover:bg-green-500 hover:text-white "
+                onClick={() => router.push("/movies")}
+              >
                 Movies
               </span>
-              <span className="flex items-center p-4 hover:bg-red-500 hover:text-white ">
+              <span
+                className="flex items-center p-4 hover:bg-red-500 hover:text-white "
+                onClick={() => router.push("/series")}
+              >
                 TV Series
               </span>
             </aside>

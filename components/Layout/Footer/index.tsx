@@ -1,97 +1,50 @@
 import React from "react";
+import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 function index() {
+  const router = useRouter();
   return (
-    <footer className="">
-      <div className="flex flex-col mx-auto  h-auto">
-        <div className="flex lg:items-center lg:justify-between flex-col lg:flex-row gap-y-[45px] py-[30px] lg:py-0 px-[15px] sm:px-[30px] md:px-[40px] lg:px-[50px] xl:px-[75px] w-full h-auto lg:h-[380px] bg-gray-800">
-          <div className="lg:w-4/12">
-            <div className="flex items-center justify-center gap-x-[8px] mb-[30px] text-white">
-              <i className="fa-solid fa-2xl fa-laptop-code"></i>Lorem ipsum
-              dolor sit
-            </div>
-
-            <div className="text-center text-gray-200">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam
-              ipsum doloremque praesentium repudiandae similique quas ipsa!
-            </div>
-          </div>
-
-          <div className="flex justify-around sm:justify-between flex-wrap lg:flex-nowrap gap-y-[60px] gap-x-[90px] sm:gap-x-0 lg:w-7/12">
-            <div className="text-center sm:text-left">
-              <div className="mb-[18px] text-gray-400 text-sm font-bold select-none">
-                Product
-              </div>
-
-              <ul className="flex flex-col gap-[10px] text-gray-200">
-                <a className="hover:underline" href="#">
-                  <li>Overview</li>
-                </a>
-                <a className="hover:underline" href="#">
-                  <li>Features</li>
-                </a>
-                <a className="hover:underline" href="#">
-                  <li>Solutions</li>
-                </a>
-                <a className="hover:underline" href="#">
-                  <li>Tutorials</li>
-                </a>
-                <a className="hover:underline" href="#">
-                  <li>Pricing</li>
-                </a>
-                <a className="hover:underline" href="#">
-                  <li>Releases</li>
-                </a>
-              </ul>
-            </div>
-
-            {/* <div className="text-center sm:text-left">
-              <ul className="my-[30px] flex flex-col gap-[10px] text-gray-200">
-                <a className="hover:underline" href="#">
-                  <li>About us</li>
-                </a>
-                <a className="hover:underline" href="#">
-                  <li>Careers</li>
-                </a>
-                <a className="hover:underline" href="#">
-                  <li>Press</li>
-                </a>
-                <a className="hover:underline" href="#">
-                  <li>News</li>
-                </a>
-                <a className="hover:underline" href="#">
-                  <li>Media kit</li>
-                </a>
-                <a className="hover:underline" href="#">
-                  <li>Contact</li>
-                </a>
-              </ul>
-            </div>
-
-            <div className="text-center sm:text-left">
-              <ul className="my-[30px] flex flex-col gap-[10px] text-gray-200">
-                <a className="hover:underline" href="#">
-                  <li>Blog</li>
-                </a>
-                <a className="hover:underline" href="#">
-                  <li>Newsletter</li>
-                </a>
-                <a className="hover:underline" href="#">
-                  <li>Events</li>
-                </a>
-                <a className="hover:underline" href="#">
-                  <li>Help centre</li>
-                </a>
-                <a className="hover:underline" href="#">
-                  <li>Tutorials</li>
-                </a>
-                <a className="hover:underline" href="#">
-                  <li>Support</li>
-                </a>
-              </ul>
-            </div> */}
-          </div>
+    <footer className="bg-gray-900 ">
+      <div className="w-full max-w-screen-xl mx-auto p-4 md:py-8">
+        <div className="flex items-center justify-between">
+          <Link href="/" className="flex items-center mb-4 sm:mb-0">
+            <Image
+              src="/logo/Logo.svg"
+              width={100}
+              height={13}
+              alt={"logo"}
+              className="cursor-pointer"
+              onClick={() => router.push("/")}
+            />
+          </Link>
+          <ul className="flex flex-wrap items-center mb-6 text-sm font-medium text-gray-500 sm:mb-0 dark:text-gray-400">
+            <li>
+              <Link href="#" className="mr-4 hover:underline md:mr-6 ">
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link href="/movies" className="mr-4 hover:underline md:mr-6">
+                Movies
+              </Link>
+            </li>
+            <li>
+              <Link href="/series" className="mr-4 hover:underline md:mr-6 ">
+                Series
+              </Link>
+            </li>
+          </ul>
         </div>
+        <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+        <span className="block text-sm text-gray-500 text-center dark:text-gray-400">
+          © {`${new Date().getFullYear()} `}
+          <Link href="/" className="hover:underline">
+            Muvee Stop
+          </Link>
+          . All Rights Reserved.
+        </span>
       </div>
     </footer>
   );
