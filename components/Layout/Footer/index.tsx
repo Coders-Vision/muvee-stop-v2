@@ -3,7 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-function index() {
+function Footer() {
   const router = useRouter();
   return (
     <footer className="bg-gray-900 ">
@@ -50,4 +50,4 @@ function index() {
   );
 }
 
-export default index;
+export default Footer
