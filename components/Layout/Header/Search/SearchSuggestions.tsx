@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 // import useSWR from "swr";
 import Image from "next/image";
+import { ISearch } from "../../../../models/common/search.model";
 
 interface ISearchSuggestion {
   search: string;
@@ -10,17 +11,18 @@ interface ISearchSuggestion {
 
 function SearchSuggestions({ search }: ISearchSuggestion) {
   const router = useRouter();
+
   const BASE_URL = "https://image.tmdb.org/t/p/original/";
-  const [result, setResult] = useState<any[]>([]);
+  const [searchResult, setSearchResult] = useState<ISearch>();
 
   useEffect(() => {
     async function searchTerm(query: string) {
       const callApi = await fetch(
         `https://api.themoviedb.org/3/search/multi?api_key=6647e8ab73826ee5e42384b9dd72b92b&language=en-US&query=${query}&page=1&include_adult=false`
       );
-      const getMovieResult = await callApi.json();
-      if (getMovieResult) {
-        setResult(getMovieResult.results);
+      const getMovieResult: ISearch = await callApi.json();
+      if (getMovieResult.results) {
+        setSearchResult(getMovieResult);
       }
     }
     searchTerm(search);
@@ -29,8 +31,8 @@ function SearchSuggestions({ search }: ISearchSuggestion) {
   const showMovies = () => (
     <div>
       <div className="flex flex-col  ">
-        {result &&
-          result
+        {searchResult?.results &&
+          searchResult.results
             .slice(0, 5)
             .filter((res) => res.media_type == "movie")
             .map((res, index) => {
@@ -48,14 +50,14 @@ function SearchSuggestions({ search }: ISearchSuggestion) {
                     }`}
                     width={50}
                     height={75}
-                    alt={res.original_title}
+                    alt={res.original_title || ""}
                     className="rounded-lg object-cover"
                   />
                   <div className="my-2">
                     <p className="mx-4  text-[#ffff]">{res.original_title}</p>
                     <div className="flex flex-row text-[#ffff] mx-4 ">
                       <div>{res.vote_average}</div>
-                      <div>{res.release_date}</div>
+                      <div>{res?.release_date || ""}</div>
                     </div>
                   </div>
                 </div>
@@ -68,10 +70,9 @@ function SearchSuggestions({ search }: ISearchSuggestion) {
     <div className="mx-2">
       <div className="text-gray">Shows</div>
       <div className="flex flex-col md:flex-row">
-        {result &&
-          result
+        {searchResult?.results &&
+          searchResult?.results
             .slice(0, 10)
-
             .filter((res) => res.media_type == "tv")
             .map((res, index) => {
               return (
@@ -85,7 +86,7 @@ function SearchSuggestions({ search }: ISearchSuggestion) {
                     width={124}
                     height={175}
                     alt=""
-                    objectFit="cover"
+                    style={{ objectFit: "cover" }}
                     className="rounded-lg"
                   />
                 </div>
