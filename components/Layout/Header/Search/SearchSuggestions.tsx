@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 // import useSWR from "swr";
 import Image from "next/image";
 import { ISearch } from "../../../../models/common/search.model";
+import { DateTime } from "luxon";
 
 interface ISearchSuggestion {
   search: string;
@@ -17,9 +18,7 @@ function SearchSuggestions({ search }: ISearchSuggestion) {
 
   useEffect(() => {
     async function searchTerm(query: string) {
-      const callApi = await fetch(
-        `https://api.themoviedb.org/3/search/multi?api_key=6647e8ab73826ee5e42384b9dd72b92b&language=en-US&query=${query}&page=1&include_adult=false`
-      );
+      const callApi = await fetch(`/api/search?query=${query}`);
       const getMovieResult: ISearch = await callApi.json();
       if (getMovieResult.results) {
         setSearchResult(getMovieResult);
@@ -27,6 +26,12 @@ function SearchSuggestions({ search }: ISearchSuggestion) {
     }
     searchTerm(search);
   }, [search]);
+
+  const searchForMoviesSeries = (type: string, id: number) => {
+    if (type === "movies") {
+      router.push(`/movies/${id}`);
+    }
+  };
 
   const showMovies = () => (
     <div>
@@ -39,7 +44,7 @@ function SearchSuggestions({ search }: ISearchSuggestion) {
               return (
                 <div
                   key={index}
-                  onClick={() => router.push(`/movies/${res.id}`)}
+                  onClick={() => searchForMoviesSeries("movies", res.id)}
                   className="flex flex-row  rounded-lg overflow-hidden shadow-xl cursor-pointer border-[3px] border-[#f9f9f9] border-opacity-10  hover:border-opacity-80 hover:shadow-2xl transform hover:scale-105 transition duration-300 mb-2"
                 >
                   <Image
@@ -55,9 +60,13 @@ function SearchSuggestions({ search }: ISearchSuggestion) {
                   />
                   <div className="my-2">
                     <p className="mx-4  text-[#ffff]">{res.original_title}</p>
-                    <div className="flex flex-row text-[#ffff] mx-4 ">
-                      <div>{res.vote_average}</div>
-                      <div>{res?.release_date || ""}</div>
+                    <div className="flex flex-row text-[#ffff] mx-4 space-x-2">
+                      <div className="text-xs mt-1 font-thin">{res.vote_average}</div>
+                      <div className="text-sm">
+                       ({res?.release_date
+                          ? DateTime.fromISO(res?.release_date || "").year
+                          : ""})
+                      </div>
                     </div>
                   </div>
                 </div>

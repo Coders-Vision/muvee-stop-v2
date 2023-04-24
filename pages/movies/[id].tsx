@@ -9,6 +9,9 @@ import dynamic from "next/dynamic";
 import { IMovie } from "../../models/Movie/movie.model";
 import { ICredit } from "../../models/Movie/cast.model";
 import { useRouter } from "next/router";
+import useSWR from 'swr'
+import { ISimilarMovies } from "../../models/Movie/similar-movie.model";
+
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 
 function Movie({
@@ -16,6 +19,10 @@ function Movie({
   credit,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
+  const { id } = router.query;
+  const { data } = useSWR<ISimilarMovies>(`/api/movie/similar-movies/${id}`, (apiURL: string) =>
+    fetch(apiURL).then((res) => res.json())
+  );
 
   const [showPlayer, setShowPlayer] = useState<boolean>(false);
   const player = () => {
@@ -137,6 +144,40 @@ function Movie({
                   </h3>
                   <p className="text-gray-500 text-[0.8rem] leading-[1.2rem]">
                     {castMember.character}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
+
+        <section className="realtive flex flex-col space-y-2 my-10 px-8 max-w-[1400px] mx-auto">
+          <h2 className="font-semibold">Similar Movies</h2>
+          <div className="flex space-x-3 overflow-y-hidden overflow-x-scroll scrollbar-hide p-2 -m-2">
+            {data?.results.map((movie, index) => (
+              <div className="flex flex-col  justify-around" key={index}>
+                <div
+                  className="flex min-w-[100px] min-h-[90px] md:min-w-[100px] md:min-h-[100px] rounded-lg overflow-hidden shadow-xl cursor-pointer border-[2px] border-[#f9f9f9] border-opacity-10  hover:border-opacity-80 hover:shadow-2xl transform hover:scale-105 transition duration-300"
+                  onClick={() => router.push(`/movies/${movie.id}`)}
+                >
+                  <Image
+                    src={`${
+                      movie?.poster_path
+                        ? `https://image.tmdb.org/t/p/w300${movie.poster_path}`
+                        : "/default-poster.svg"
+                    }`}
+                    width={100}
+                    height={100}
+                    className="rounded-lg"
+                    alt={movie.title}
+                  />
+                </div>
+                <div className="text-center">
+                  <h3 className="text-lg font-semibold text-[0.8rem] leading-[0.9rem]">
+                    {movie.title}
+                  </h3>
+                  <p className="text-gray-500 text-[0.8rem] leading-[1.2rem]">
+                    {movie.release_date}
                   </p>
                 </div>
               </div>
