@@ -61,7 +61,7 @@ function Movies() {
               <Loader />
             </div>
           ) : (
-            <MoviesByGenre moviesByGenre={moviesByGenre.data} />
+            <MoviesByGenre moviesByGenre={moviesByGenre.data!} />
           )}
         </section>
       </Layout>
