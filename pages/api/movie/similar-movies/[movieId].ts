@@ -1,8 +1,8 @@
-import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiHandler} from 'next';
 import createHttpError from 'http-errors';
-import { apiHandler } from '../../../../utils/api';
+import { apiHandler } from '@utils/api';
 
-import { ISimilarMovies } from '../../../../models/Movie/similar-movie.model';
+import { ISimilarMovies } from '@models/Movie/similar-movie.model';
 
 
 const getSimilarMovies: NextApiHandler<ISimilarMovies> = async (req, res) => {
