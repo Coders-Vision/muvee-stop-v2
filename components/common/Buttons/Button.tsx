@@ -27,8 +27,8 @@ export function Button<T extends ButtonComponentType>({
     return (
 <div>
 <button
-        className={`inline-block align-middle text-center select-none border-2 font-normal whitespace-no-wrap  py-1 px-3 leading-normal no-underline text-gray-300 border-gray-500  bg-none hover:bg-teal-600 active  rounded-3xl transform-300 ${
-          activeClass ? activeClass : ""
+        className={`inline-block  align-middle text-center select-none border-2 rounded-3xl font-normal whitespace-nowrap  py-1 px-3 leading-normal no-underline transform-300  ${
+          activeClass ? activeClass : "  text-gray-300 border-gray-500  bg-none hover:bg-teal-600 active"
         }`}
         {...(restProps as ButtonProps)}
       >

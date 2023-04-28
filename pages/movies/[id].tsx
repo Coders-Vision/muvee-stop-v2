@@ -3,14 +3,14 @@ import { GetServerSideProps } from "next";
 import { useState } from "react";
 import Head from "next/head";
 import Image from "next/image";
-import Layout from "../../components/Layout";
+import Layout from "@components/Layout";
 import { HiPlus, HiX } from "react-icons/hi";
 import dynamic from "next/dynamic";
-import { IMovie } from "../../models/Movie/movie.model";
-import { ICredit } from "../../models/Movie/cast.model";
+import { IMovie } from "@models/Movie/movie.model";
+import { ICredit } from "@models/Movie/cast.model";
 import { useRouter } from "next/router";
 import useSWR from 'swr'
-import { ISimilarMovies } from "../../models/Movie/similar-movie.model";
+import { ISimilarMovies } from "@models/Movie/similar-movie.model";
 
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 

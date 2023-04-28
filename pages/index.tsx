@@ -1,15 +1,15 @@
 import Head from "next/head";
-import Layout from "../components/Layout";
+import Layout from "@components/Layout";
 import { Inter } from "@next/font/google";
-import NowPlaying from "../components/Home/NowPlaying";
+import NowPlaying from "@components/Home/NowPlaying";
 import {
   GetServerSideProps,
   GetServerSidePropsContext,
   InferGetServerSidePropsType,
 } from "next";
-import TrendingMovies from "../components/Home/TrendingMovies";
-import { INowPlaying } from "../models/Home/nowPlaying.model";
-import { IPopular } from "../models/Home/popular.model";
+import TrendingMovies from "@components/Home/TrendingMovies";
+import { INowPlaying } from "@models/Home/nowPlaying.model";
+import { IPopular } from "@models/Home/popular.model";
 // import styles from '../styles/Home.module.css'
 
 const inter = Inter({ subsets: ["latin"] });

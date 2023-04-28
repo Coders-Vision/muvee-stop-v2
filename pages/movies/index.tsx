@@ -1,17 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, {useState } from "react";
 import Head from "next/head";
-import Image from "next/image";
-import Layout from "../../components/Layout";
-import GenreButton from "../../components/common/Buttons/GenreButton";
+import Layout from "@components/Layout";
+import GenreButton from "@components/common/Buttons/GenreButton";
 import useSWR from "swr";
-import { IGenreList } from "../../models/common/genreList.model";
-import Loader from "../../components/common/Loaders/Loader";
-import { IMoviesByGenre } from "../../models/Movies/movies-by-genre.model";
-import MoviesByGenre from "../../components/Movies/MoviesByGenre";
+import { IGenreList } from "@models/common/genreList.model";
+import Loader from "@components/common/Loaders/Loader";
+import { IMoviesByGenre } from "@models/Movies/movies-by-genre.model";
+import MoviesByGenre from "@components/Movies/MoviesByGenre";
 
 function Movies() {
   const [genreId, setGenreId] = useState<number>(28);
-  const genreList = useSWR<IGenreList>(`/api/genre-list`, (apiURL: string) =>
+  const genreList = useSWR<IGenreList>(`/api/genre-list?media=movie`, (apiURL: string) =>
     fetch(apiURL).then((res) => res.json())
   );
   const moviesByGenre = useSWR<IMoviesByGenre>(
@@ -57,7 +56,7 @@ function Movies() {
         <section className="realtive space-y-2 my-10 px-8 max-w-[1400px] mx-auto">
           <h2 className="font-semibold">Movies By Genre</h2>
           {moviesByGenre.isLoading ? (
-            <div className="flex items-center justify-center">
+            <div className="flex items-center justify-center h-[50vh]">
               <Loader />
             </div>
           ) : (

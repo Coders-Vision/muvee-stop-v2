@@ -5,7 +5,6 @@ import { IMoviesByGenre } from '../../../../models/Movies/movies-by-genre.model'
 
 const getMoviesByGenreId: NextApiHandler<IMoviesByGenre> = async (req, res) => {
     const { genreId } = req.query;
-    https://api.themoviedb.org/3/discover/movie?
     if (!genreId)
         throw new createHttpError.NotFound(`Genre ID  is required`);
     if (genreId) {

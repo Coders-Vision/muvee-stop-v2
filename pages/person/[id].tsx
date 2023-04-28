@@ -2,8 +2,8 @@ import { GetServerSidePropsContext, InferGetServerSidePropsType } from "next";
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import Image from "next/image";
-import Layout from "../../components/Layout";
-import { Person } from "../../models/Person/person.model";
+import Layout from "@components/Layout";
+import { Person } from "@models/Person/person.model";
 import { DateTime } from "luxon";
 // import dynamic from "next/dynamic";
 
