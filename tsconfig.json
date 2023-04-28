@@ -5,6 +5,7 @@
     "paths": {
       "@components/*": ["components/*"],
       "@models/*": ["models/*"],
+      "@utils/*": ["utils/*"],
     },
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,

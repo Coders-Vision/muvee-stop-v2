@@ -1,5 +1,5 @@
-import { Result } from "../../models/Home/popular.model";
-import { IMoviesByGenre } from "../../models/Movies/movies-by-genre.model";
+import { Result } from "@models/Home/popular.model";
+import { IMoviesByGenre } from "@models/Movies/movies-by-genre.model";
 import MovieCard from "../common/MovieCard";
 
 type Props = {

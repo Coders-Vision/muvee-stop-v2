@@ -15,7 +15,7 @@ function index() {
       </Head>
 
       <Layout>
-        <h1>Movies Page</h1>
+        <h1>Series Page</h1>
       </Layout>
     </>
   );

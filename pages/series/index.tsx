@@ -5,11 +5,17 @@ import useSWR from "swr";
 import { IGenreList } from "../../models/common/genreList.model";
 import GenreButton from "../../components/common/Buttons/GenreButton";
 import Loader from "../../components/common/Loaders/Loader";
+import { IShowsByGenre } from "@models/Shows/shows-by-genre.model";
+import ShowsByGenre from "@components/Shows/ShowsByGenre";
 
 function Series() {
-  const [genreId, setGenreId] = useState<number>(28);
+  const [genreId, setGenreId] = useState<number>(10759);
   const genreList = useSWR<IGenreList>(
     `/api/genre-list?media=tv`,
+    (apiURL: string) => fetch(apiURL).then((res) => res.json())
+  );
+  const showsByGenre = useSWR<IShowsByGenre>(
+    `/api/shows/shows-by-genre/${genreId}`,
     (apiURL: string) => fetch(apiURL).then((res) => res.json())
   );
   return (
@@ -48,9 +54,19 @@ function Series() {
             </div>
           )}
         </section>
+        <section className="realtive space-y-2 my-10 px-8 max-w-[1400px] mx-auto">
+          <h2 className="font-semibold">Shows By Genre</h2>
+          {showsByGenre.isLoading ? (
+            <div className="flex items-center justify-center h-[50vh]">
+              <Loader />
+            </div>
+          ) : (
+            <ShowsByGenre showsByGenre={showsByGenre.data!} />
+          )}
+        </section>
       </Layout>
     </>
   );
 }
 
-export default Series
+export default Series;

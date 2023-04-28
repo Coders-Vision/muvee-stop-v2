@@ -2,30 +2,30 @@ import { useEffect, useState, useRef, MouseEvent } from "react";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { AiTwotoneStar } from "react-icons/ai";
-import { Result } from "@models/Home/popular.model";
+import { Result } from "@models/Shows/shows-by-genre.model";
 
 type Props = {
   result: Result;
 };
 
-function MovieCard({ result }: Props) {
+function ShowCard({ result }: Props) {
   const [showQuickDetails, setShowQuickDetails] = useState<boolean>(false);
 
   const BASE_URL = "https://image.tmdb.org/t/p/w300/";
   const router = useRouter();
-  const movieCardRef = useRef<HTMLDivElement>(null);
+  const showCardRef = useRef<HTMLDivElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
   const [pos, setPost] = useState<boolean>(false);
 
   const isMouseInBound = (): void => {
-    const movieRefParentWidth =
-      movieCardRef.current?.offsetParent?.clientWidth || 0;
+    const showRefParentWidth =
+      showCardRef.current?.offsetParent?.clientWidth || 0;
     const tooltipRefBounds = tooltipRef.current!.getBoundingClientRect();
 
     console.log("Tooltip Right", tooltipRefBounds.right);
-    console.log("Movie Card Parent", movieRefParentWidth);
+    console.log("show Card Parent", showRefParentWidth);
 
-    if (tooltipRefBounds.right < movieRefParentWidth) {
+    if (tooltipRefBounds.right < showRefParentWidth) {
       setPost(true);
     } else {
       setPost(false);
@@ -39,9 +39,9 @@ function MovieCard({ result }: Props) {
 
   return (
     <div
-      id="movieCardRef"
+      id="showCardRef"
       className="relative"
-      ref={movieCardRef}
+      ref={showCardRef}
       onMouseEnter={(e: MouseEvent<HTMLDivElement>) => {
         setShowQuickDetails(true);
       }}
@@ -50,19 +50,19 @@ function MovieCard({ result }: Props) {
       <div className="flex flex-col">
         <div
           className="min-h-[30vh] md:min-h-[25vh]  md:h-[250px] rounded-lg  shadow-xl cursor-pointer border-[3px] border-[#f9f9f9] border-opacity-10  hover:border-opacity-80 hover:shadow-2xl transform hover:scale-105 transition duration-300"
-          onClick={() => router.push(`/movies/${result.id}`)}
+          onClick={() => router.push(`/series/${result.id}`)}
         >
           <Image
             src={`${BASE_URL}${result.poster_path}`}
             fill
-            alt="movie"
+            alt="show"
             className="rounded-lg md:object-cover"
           />
         </div>
         <div>
-          <div className="my-2 text-center">{result.original_title}</div>
+          <div className="my-2 text-center">{result.original_name}</div>
           <div className="font-thin text-center text-xs leading-none">
-            {result.release_date?.toString()}
+            {result.first_air_date}
           </div>
         </div>
       </div>
@@ -79,7 +79,7 @@ function MovieCard({ result }: Props) {
         }`}
       >
         <div className="m-2 flex flex-col">
-          <h6 className="font-light m-2 text-left">{result.original_title}</h6>
+          <h6 className="font-light m-2 text-left">{result.original_name}</h6>
           <div className="flex flex-row">
             <div className="m-2 inline-flex ">
               <AiTwotoneStar />
@@ -87,7 +87,7 @@ function MovieCard({ result }: Props) {
             </div>
             <div className="m-2 inline-flex ">
               <div className="text-xs mx-1">
-                {result.release_date?.toString()}
+                {result?.first_air_date}
               </div>
             </div>
           </div>
@@ -105,4 +105,4 @@ function MovieCard({ result }: Props) {
   );
 }
 
-export default MovieCard;
+export default ShowCard

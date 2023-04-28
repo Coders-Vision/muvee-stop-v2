@@ -1,7 +1,7 @@
-import type { NextApiHandler, NextApiRequest, NextApiResponse } from 'next';
+import type { NextApiHandler} from 'next';
 import createHttpError from 'http-errors';
-import { apiHandler } from '../../../../utils/api';
-import { IMoviesByGenre } from '../../../../models/Movies/movies-by-genre.model';
+import { apiHandler } from '@utils/api';
+import { IMoviesByGenre } from '@models/Movies/movies-by-genre.model';
 
 const getMoviesByGenreId: NextApiHandler<IMoviesByGenre> = async (req, res) => {
     const { genreId } = req.query;
