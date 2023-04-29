@@ -14,7 +14,7 @@ import { ISimilarShows} from "@models/Show/similar-show.model";
 
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 
-function show({
+function Show({
   show,
   credit,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
@@ -197,7 +197,7 @@ function show({
   );
 }
 
-export default show;
+export default Show;
 
 export const getServerSideProps: GetServerSideProps<{
   show: IShow;
@@ -225,20 +225,3 @@ export const getServerSideProps: GetServerSideProps<{
   };
 };
 
-// export async function getServerSideProps(context) {
-//   const { id } = context.query;
-
-//   const request = await fetch(
-//     `https://api.theshowdb.org/3/tv/${id}?api_key=${process.env.TMDB_API_KEY}&language=en-US&append_to_response=videos`
-//   ).then((response) => response.json());
-//   const cast = await fetch(
-//     `https://api.theshowdb.org/3/tv/${id}/credits?api_key=${process.env.TMDB_API_KEY}`
-//   ).then((response) => response.json());
-
-//   return {
-//     props: {
-//       result: request,
-//       cast,
-//     },
-//   };
-// }
