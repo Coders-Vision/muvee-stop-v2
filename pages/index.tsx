@@ -19,8 +19,9 @@ function Page({
   return (
     <>
       <Head>
+        <title>Muvee Stop | Search Movies for Free</title>
         <SEOTags
-          title="Muvee Stop | Search Movies for Free"
+          // title="Muvee Stop | Search Movies for Free"
           description={`Search online movies for free, search movies free without registration.Just a better place for searching movies online for free.`}
           keywords={`muvee stop, muvee, search movies, online movie, movie online, search movies online, search movies online free, hd movies, search movies online,`}
           ogTitle={"Muvee Stop | Search Movies for Free"}
