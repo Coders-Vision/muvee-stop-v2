@@ -25,16 +25,18 @@ export function Button<T extends ButtonComponentType>({
     return <a {...(restProps as AnchorProps)}>{children}</a>;
   if (as === ButtonComponentType.BUTTON)
     return (
-<div>
-<button
-        className={`inline-block  align-middle text-center select-none border-2 rounded-3xl font-normal whitespace-nowrap  py-1 px-3 leading-normal no-underline transform-300  ${
-          activeClass ? activeClass : "  text-gray-300 border-gray-500  bg-none hover:bg-teal-600 active"
-        }`}
-        {...(restProps as ButtonProps)}
-      >
-        {children}
-      </button>
-</div>
+      <div>
+        <button
+          className={`inline-block  align-middle text-center select-none border-2 rounded-3xl font-normal whitespace-nowrap  py-1 px-3 leading-normal no-underline transform-300  ${
+            activeClass
+              ? activeClass
+              : "  text-gray-300 border-gray-500  bg-none hover:bg-teal-600 active"
+          }`}
+          {...(restProps as ButtonProps)}
+        >
+          {children}
+        </button>
+      </div>
     );
   return null;
 }

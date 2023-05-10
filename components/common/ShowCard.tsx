@@ -3,6 +3,7 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { AiTwotoneStar } from "react-icons/ai";
 import { Result } from "@models/Shows/shows-by-genre.model";
+import { Button, ButtonComponentType } from "./Buttons/Button";
 
 type Props = {
   result: Result;
@@ -93,12 +94,17 @@ function ShowCard({ result }: Props) {
           </div>
           <div className="mt-1">
             <p className="text-gray-500 font-light m-2 text-sm select-none">
-              {result?.overview?.slice(0, 250).concat("...") ?? ""}
+              {result?.overview?.slice(0, 180).concat("...") ?? ""}
             </p>
           </div>
-          {/* <div className="mt-2">
-            <button className="bg-green-700">View</button>
-          </div> */}
+          <div className="mt-1">
+            <Button
+              onClick={() => router.push(`/series/${result.id}`)}
+              as={ButtonComponentType.BUTTON}
+            >
+              View
+            </Button>
+          </div>
         </div>
       </div>
     </div>
