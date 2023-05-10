@@ -2,14 +2,11 @@ import Head from "next/head";
 import Layout from "@components/Layout";
 import { Inter } from "@next/font/google";
 import NowPlaying from "@components/Home/NowPlaying";
-import {
-  GetServerSideProps,
-  GetServerSidePropsContext,
-  InferGetServerSidePropsType,
-} from "next";
+import { GetServerSideProps, InferGetServerSidePropsType } from "next";
 import TrendingMovies from "@components/Home/TrendingMovies";
 import { INowPlaying } from "@models/Home/nowPlaying.model";
 import { IPopular } from "@models/Home/popular.model";
+import SEOTags from "@components/common/SEOTags";
 // import styles from '../styles/Home.module.css'
 
 const inter = Inter({ subsets: ["latin"] });
@@ -17,18 +14,25 @@ const inter = Inter({ subsets: ["latin"] });
 function Page({
   nowPlaying,
   popularMovies,
+  domainUrl,
 }: InferGetServerSidePropsType<typeof getServerSideProps | any>) {
   return (
     <>
       <Head>
-        <title>Muvee Stop | Search Movies for Free</title>
-        <meta
-          name="description"
-          content="Search online movies for free, search movies free without registration. Just a better place for searching movies online for free. "
+        <SEOTags
+          title="Muvee Stop | Search Movies for Free"
+          description={`Search online movies for free, search movies free without registration.Just a better place for searching movies online for free.`}
+          keywords={`muvee stop, muvee, search movies, online movie, movie online, search movies online, search movies online free, hd movies, search movies online,`}
+          ogTitle={"Muvee Stop | Search Movies for Free"}
+          ogDescription={
+            "Search online movies for free, search movies free without registration.Just a better place for searching movies online for free. Muvee Stop, muvee.stop, muvee stop."
+          }
+          ogImage={`${domainUrl}/images/og-image.png`}
+          ogType={`website`}
+          twitterTitle={`Muvee Stop | Search Movies for Free`}
+          twitterDescription={`Search online movies for free, search movies free without registration.Just a better place for searching movies online for free. Muvee Stop, muvee.stop, muvee stop.`}
+          twitterImage={`${domainUrl}/images/og-image.png`}
         />
-        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
       </Head>
       <Layout>
         <NowPlaying nowPlaying={nowPlaying} />
@@ -42,7 +46,8 @@ export default Page;
 export const getServerSideProps: GetServerSideProps<{
   nowPlaying: INowPlaying;
   popularMovies: IPopular;
-}> = async () => {
+}> = async (context) => {
+  const protocol = context.req.headers["x-forwarded-proto"] || "http";
   const res = await fetch(
     `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.TMDB_API_KEY}`
   );
@@ -56,6 +61,7 @@ export const getServerSideProps: GetServerSideProps<{
     props: {
       nowPlaying,
       popularMovies,
+      domainUrl: `${protocol}://${context.req.headers.host}`,
     },
   };
 };

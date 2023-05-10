@@ -5,6 +5,7 @@ import Image from "next/image";
 import Layout from "@components/Layout";
 import { Person } from "@models/Person/person.model";
 import { DateTime } from "luxon";
+import SEOTags from "@components/common/SEOTags";
 // import dynamic from "next/dynamic";
 
 function index({
@@ -14,11 +15,20 @@ function index({
   return (
     <>
       <Head>
-        <title>Muvee Stop | {person?.name}</title>
-        <meta name="description" content={`${person.biography}`} />
-        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <title>{`Muvee Stop | ${person?.name}`}</title>
+        <SEOTags
+          // title={`Muvee Stop | ${person?.name}`}
+          description={person.biography}
+          ogTitle={`Muvee Stop | ${person.name}`}
+          ogDescription={person.biography}
+          ogImage={`https://image.tmdb.org/t/p/w500${person.images.profiles[0].file_path}`}
+          ogImageType="image/jpg"
+          ogImageWidth={600}
+          ogImageHeight={315}
+          twitterTitle={`Muvee Stop | ${person?.name}`}
+          twitterDescription={person.biography}
+          twitterImage={`https://image.tmdb.org/t/p/w500${person.images.profiles[0].file_path}`}
+        />
       </Head>
 
       <Layout>

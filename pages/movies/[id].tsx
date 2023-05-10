@@ -9,8 +9,9 @@ import dynamic from "next/dynamic";
 import { IMovie } from "@models/Movie/movie.model";
 import { ICredit } from "@models/Movie/cast.model";
 import { useRouter } from "next/router";
-import useSWR from 'swr'
+import useSWR from "swr";
 import { ISimilarMovies } from "@models/Movie/similar-movie.model";
+import SEOTags from "@components/common/SEOTags";
 
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 
@@ -20,8 +21,9 @@ function Movie({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
   const { id } = router.query;
-  const { data } = useSWR<ISimilarMovies>(`/api/movie/similar-movies/${id}`, (apiURL: string) =>
-    fetch(apiURL).then((res) => res.json())
+  const { data } = useSWR<ISimilarMovies>(
+    `/api/movie/similar-movies/${id}`,
+    (apiURL: string) => fetch(apiURL).then((res) => res.json())
   );
 
   const [showPlayer, setShowPlayer] = useState<boolean>(false);
@@ -38,11 +40,20 @@ function Movie({
   return (
     <>
       <Head>
-        <title>Muvee Stop | {movie?.original_title}</title>
-        <meta name="description" content={`${movie.overview}`} />
-        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <title>{`Muvee Stop | ${movie?.original_title}`} </title>
+        <SEOTags
+          // title={`Muvee Stop | ${movie?.original_title}`}
+          description={movie.overview}
+          ogTitle={`Muvee Stop | ${movie.original_title}`}
+          ogDescription={movie.overview}
+          ogImage={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
+          ogImageType="image/jpg"
+          ogImageWidth={600}
+          ogImageHeight={315}
+          twitterTitle={`Muvee Stop | ${movie?.original_title}`}
+          twitterDescription={movie.overview}
+          twitterImage={`https://image.tmdb.org/t/p/w500${movie.backdrop_path}`}
+        />
       </Head>
 
       <Layout>

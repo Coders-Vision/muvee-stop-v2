@@ -10,7 +10,8 @@ import { IShow } from "@models/Show/show.model";
 import { ICredit } from "@models/Show/cast.model";
 import { useRouter } from "next/router";
 import useSWR from "swr";
-import { ISimilarShows} from "@models/Show/similar-show.model";
+import { ISimilarShows } from "@models/Show/similar-show.model";
+import SEOTags from "@components/common/SEOTags";
 
 const ReactPlayer = dynamic(() => import("react-player"), { ssr: false });
 
@@ -20,8 +21,9 @@ function Show({
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const router = useRouter();
   const { id } = router.query;
-  const { data } = useSWR<ISimilarShows>(`/api/show/similar-shows/${id}`, (apiURL: string) =>
-    fetch(apiURL).then((res) => res.json())
+  const { data } = useSWR<ISimilarShows>(
+    `/api/show/similar-shows/${id}`,
+    (apiURL: string) => fetch(apiURL).then((res) => res.json())
   );
 
   const [showPlayer, setShowPlayer] = useState<boolean>(false);
@@ -38,11 +40,20 @@ function Show({
   return (
     <>
       <Head>
-        <title>Muvee Stop | {show?.name}</title>
-        <meta name="description" content={`${show.overview}`} />
-        <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.ico" />
+        <title>{`Muvee Stop | ${show?.name}`}</title>
+        <SEOTags
+          // title={`Muvee Stop | ${show?.name}`}
+          description={show.overview}
+          ogTitle={`Muvee Stop | ${show.name}`}
+          ogDescription={show.overview}
+          ogImage={`https://image.tmdb.org/t/p/w500${show.backdrop_path}`}
+          ogImageType="image/jpg"
+          ogImageWidth={600}
+          ogImageHeight={315}
+          twitterTitle={`Muvee Stop | ${show?.name}`}
+          twitterDescription={show.overview}
+          twitterImage={`https://image.tmdb.org/t/p/w500${show.backdrop_path}`}
+        />
       </Head>
 
       <Layout>
@@ -224,4 +235,3 @@ export const getServerSideProps: GetServerSideProps<{
     },
   };
 };
-
